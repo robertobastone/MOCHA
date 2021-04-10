@@ -3,33 +3,33 @@ import os # info about file
 import sys # better management of the exceptions
 import pandas as pd # open excel file
 from termcolor import colored # customize ui
-from pprint import pprint
 import astropy.units as u # managing units of measure
 from astropy.coordinates import SkyCoord # managing coordinate systems
 
-dataLocation ='constellations.xlsx'
+######################### CODE #########################
+
+dataLocation ='constellations.xlsx' # file name
 
 class loadData:
 
     def __init__(self):
         self.listConstellations = []
         try:
-            print(colored("Loading data... ", 'blue'))
-            self.listConstellations = self.getData()
+            self.listConstellations = self.generateListCostellations()
         except Exception as e:
             print(colored(str(e), 'red'))
             print(colored(str(exc_tb.tb_frame.f_code.co_filename) + " at  line " + str(exc_tb.tb_lineno), 'red'))
 
-    def getData(self):
+    def generateListCostellations(self):
         try:
-            workbook = pd.ExcelFile(dataLocation)
+            workbook = pd.ExcelFile(dataLocation) # open excel file
             listConstellations = []
-            for worksheets in workbook.sheet_names:
-                constellation_sheet = workbook.parse(worksheets)
-                number_rows = constellation_sheet.shape[0]
+            for worksheets in workbook.sheet_names: # foreach sheet in excel file
+                constellation_sheet = workbook.parse(worksheets) # open one sheet
+                number_rows = constellation_sheet.shape[0] # get rows number of the sheet
                 list_star = []
-                for index in range(0,number_rows):
-                    star = constellation_sheet.iloc[index]
+                for index in range(0,number_rows): # for row
+                    star = constellation_sheet.iloc[index] # get row data, i.e. star infos
                     astrum = generatingStar(star['Name'],
                                             star['MochaId'],
                                             star['RA'],
@@ -44,7 +44,9 @@ class loadData:
             print(colored("The following exception was catched:" + str(e), 'red'))
             print(colored(str(exc_tb.tb_frame.f_code.co_filename) + " at  line " + str(exc_tb.tb_lineno), 'red'))
 
-######### defining wrapper class for Messier Objects
+######################### WRAPPER CLASSES #########################
+
+######### defining wrapper class for Constellation Object
 class Constellation(object):
     name = ""
     list_star = []
@@ -53,11 +55,10 @@ class Constellation(object):
         self.name = name
         self.list_star = list_star
 
-
-
+######### defining wrapper class for Star Object
 class Star(object):
     name = ""
-    mochaId = ""
+    mochaId = "" # my personal id (look at "constellations.xlsx")
     galacticLatitude = 0
     galacticLongitude = 0
     bonds = ""
@@ -72,11 +73,12 @@ class Star(object):
         self.bonds = bonds
         self.constellation = constellation
 
-
+######### supporting method to generate Constellation object
 def generatingConstellation(name, list_star):
     constellation = Constellation(name, list_star)
     return constellation
 
+######### supporting method to generate Star object
 def generatingStar(name, mochaId, ra, dec, bonds, constellation):
     star = Star(name, mochaId, ra, dec, bonds, constellation)
     return star

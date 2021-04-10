@@ -1,2 +1,12 @@
 # MOCHA
 Map Of Constellation in Hodiern Astronomy (MOCHA)
+
+# Milestones
+1. April 10, 2021: MOCHA 1.00
+   - first release
+
+# Versions
+## Version 1.00 (Apr 10, 2021)
+- first complete version
+## Version 1.01 (Apr 10, 2021)
+- Minor aesthetic changes / added borders around zoomed regions
