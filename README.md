@@ -10,3 +10,5 @@ Map Of Constellation in Hodiern Astronomy (MOCHA)
 - first complete version
 ## Version 1.01 (Apr 10, 2021)
 - Minor aesthetic changes / added borders around zoomed regions
+## Version 1.02 (Apr 11, 2021)
+- Second zoomed area is now a Lambert projection of main map

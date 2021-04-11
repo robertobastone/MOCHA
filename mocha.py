@@ -24,19 +24,18 @@ class mocha:
             fig.suptitle('Northern and Southern Constellations (Galactic frame)')
 
             ### PLOTTING CONSTELLATIONS IN GALACIC FRAME
-            ax_galaxy = fig.add_subplot(spec[0:2, :], projection=settings.projection)
+            ax_galaxy = fig.add_subplot(spec[0:2, :], projection=settings.projectionHammer)
             ax_galaxy.grid(True)
             ax_galaxy.set_title('Galactic frame')
-            ax_galaxy.locator_params(axis='x', nbins=22)
             ax_galaxy.set_xlabel(r'Galactic latitude $\mathrm{[\degree]}$')
             ax_galaxy.set_ylabel(r'Galactic longitude $\mathrm{[\degree]}$')
 
             # drawing zoomed regions
             zoomedRegion1 = mpatches.Rectangle((np.radians(settings.zoom_1_x[0]), np.radians(settings.zoom_1_y[0])), np.radians(settings.zoom_1_width), np.radians(settings.zoom_1_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
-            zoomedRegion2 = mpatches.Rectangle((np.radians(settings.zoom_2_x[0]), np.radians(settings.zoom_2_y[0])), np.radians(settings.zoom_2_width), np.radians(settings.zoom_2_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
+            #zoomedRegion2 = mpatches.Rectangle((np.radians(settings.zoom_2_x[0]), np.radians(settings.zoom_2_y[0])), np.radians(settings.zoom_2_width), np.radians(settings.zoom_2_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
             zoomedRegion3 = mpatches.Rectangle((np.radians(settings.zoom_3_x[0]), np.radians(settings.zoom_3_y[0])), np.radians(settings.zoom_3_width), np.radians(settings.zoom_3_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
             ax_galaxy.add_patch(zoomedRegion1)
-            ax_galaxy.add_patch(zoomedRegion2)
+            #ax_galaxy.add_patch(zoomedRegion2)
             ax_galaxy.add_patch(zoomedRegion3)
 
             ### FIRST ZOOMED REGION
@@ -48,13 +47,14 @@ class mocha:
             ax_zoom1.set_xlim(settings.zoom_1_x[0],settings.zoom_1_x[1])
             ax_zoom1.set_ylim(settings.zoom_1_y[0],settings.zoom_1_y[1])
 
-            ### SECOND ZOOMED REGION
-            ax_zoom2 = fig.add_subplot(spec[2, 1])
+            ### SECOND ZOOMED REGION --- NOW IT IS A LAMBERT PROJECTION OF AX GALAXY
+            ax_zoom2 = fig.add_subplot(spec[2, 1], projection=settings.projectionLambert)
             ax_zoom2.grid(True)
+            ax_zoom2.locator_params(axis='x', nbins=settings.bins_2_x)
+            ax_zoom2.set_title('Ecliptic Constellations (galactic frame)')
             ax_zoom2.set_xlabel(r'Galactic latitude $\mathrm{[\degree]}$')
-            ax_zoom2.set_title('Zoomed region ' + str(settings.zoom_2_width) + r'$\mathrm{\degree}$x' + str(settings.zoom_2_height) + r'$\mathrm{\degree}$')
-            ax_zoom2.set_xlim(settings.zoom_2_x[0],settings.zoom_2_x[1])
-            ax_zoom2.set_ylim(settings.zoom_2_y[0],settings.zoom_2_y[1])
+            #ax_zoom2.set_xlim(settings.zoom_2_x[0],settings.zoom_2_x[1])
+            #ax_zoom2.set_ylim(settings.zoom_2_y[0],settings.zoom_2_y[1])
 
             ### THIRD ZOOMED REGION
             ax_zoom3 = fig.add_subplot(spec[2, 2])
@@ -72,7 +72,8 @@ class mocha:
                     y = star.galacticLongitude.value
                     ax_galaxy.scatter(np.radians(x), np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
                     ax_zoom1.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
-                    ax_zoom2.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
+                    if constellation.name in settings.eclipticConstellations:
+                        ax_zoom2.scatter(np.radians(x),np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
                     ax_zoom3.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
                     bonds = star.bonds.split(';')
                     for bond in bonds:
@@ -83,7 +84,8 @@ class mocha:
                                 ax_galaxy.plot( (np.radians(x), np.radians(x2)),
                                                 (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize)
                                 ax_zoom1.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize)
-                                ax_zoom2.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize)
+                                if constellation.name in settings.eclipticConstellations:
+                                    ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize)
                                 ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize)
             ### SAVE PLOT
             plt.savefig('mocha.png', dpi=400)

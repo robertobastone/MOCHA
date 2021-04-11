@@ -24,6 +24,7 @@ class loadData:
         try:
             workbook = pd.ExcelFile(dataLocation) # open excel file
             listConstellations = []
+            print(len(workbook.sheet_names))
             for worksheets in workbook.sheet_names: # foreach sheet in excel file
                 constellation_sheet = workbook.parse(worksheets) # open one sheet
                 number_rows = constellation_sheet.shape[0] # get rows number of the sheet
