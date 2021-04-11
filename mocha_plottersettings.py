@@ -10,14 +10,16 @@ class getPlotSetting:
         self.figsize_y = 10
         self.projectionHammer = 'hammer'
         self.projectionLambert = 'lambert'
-        self.gal_sizeOfMarkers = 15
-        self.sizeOfMarkers = 10
         self.sizeOfFont = 8
         self.ratiooffset = 80
-        self.zorder = 100
+        self.zoomedregionZorder=200
+        # ax_scatter settings
+        self.starZorder = 100
         self.starMarker = '*'
         self.starColor = 'darkgoldenrod'
         self.starSize = 3
+        # ax_plot settings
+        self.constellationZorder = 50
         self.constellationColor = 'cornflowerblue'
         self.constellationSize = 1
         # zoom 1 settings
@@ -26,7 +28,7 @@ class getPlotSetting:
         self.zoom_1_y = [20,40]
         self.zoom_1_height = self.zoom_1_y[1] - self.zoom_1_y[0]
         self.zoom_1_offsetx = self.zoom_1_width/self.ratiooffset
-        # zoom 2 settings
+        # zoom 2 settings --- now lambert projection of ecliptic constellations
         self.eclipticConstellations = ['Aries', 'Taurus', 'Gemini',
                                        'Cancer', 'Leo', 'Virgo',
                                        'Libra', 'Scorpio', 'Ophiuchus', 'Sagittarius',
@@ -40,8 +42,8 @@ class getPlotSetting:
         self.zoom_2_offsetx = self.zoom_2_width/self.ratiooffset
         '''
         # zoom 3 settings
-        self.zoom_3_x = [130,160]
+        self.zoom_3_x = [30,90]
         self.zoom_3_width = self.zoom_3_x[1] - self.zoom_3_x[0]
-        self.zoom_3_y = [-40,-20]
+        self.zoom_3_y = [-20,20]
         self.zoom_3_height = self.zoom_3_y[1] - self.zoom_3_y[0]
         self.zoom_3_offsetx = self.zoom_3_width/self.ratiooffset

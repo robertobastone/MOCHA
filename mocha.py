@@ -31,9 +31,9 @@ class mocha:
             ax_galaxy.set_ylabel(r'Galactic longitude $\mathrm{[\degree]}$')
 
             # drawing zoomed regions
-            zoomedRegion1 = mpatches.Rectangle((np.radians(settings.zoom_1_x[0]), np.radians(settings.zoom_1_y[0])), np.radians(settings.zoom_1_width), np.radians(settings.zoom_1_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
-            #zoomedRegion2 = mpatches.Rectangle((np.radians(settings.zoom_2_x[0]), np.radians(settings.zoom_2_y[0])), np.radians(settings.zoom_2_width), np.radians(settings.zoom_2_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
-            zoomedRegion3 = mpatches.Rectangle((np.radians(settings.zoom_3_x[0]), np.radians(settings.zoom_3_y[0])), np.radians(settings.zoom_3_width), np.radians(settings.zoom_3_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zorder)
+            zoomedRegion1 = mpatches.Rectangle((np.radians(settings.zoom_1_x[0]), np.radians(settings.zoom_1_y[0])), np.radians(settings.zoom_1_width), np.radians(settings.zoom_1_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zoomedregionZorder)
+            #zoomedRegion2 = mpatches.Rectangle((np.radians(settings.zoom_2_x[0]), np.radians(settings.zoom_2_y[0])), np.radians(settings.zoom_2_width), np.radians(settings.zoom_2_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zoomedregionZorder)
+            zoomedRegion3 = mpatches.Rectangle((np.radians(settings.zoom_3_x[0]), np.radians(settings.zoom_3_y[0])), np.radians(settings.zoom_3_width), np.radians(settings.zoom_3_height), linewidth=1, edgecolor='r', facecolor='none', zorder = settings.zoomedregionZorder)
             ax_galaxy.add_patch(zoomedRegion1)
             #ax_galaxy.add_patch(zoomedRegion2)
             ax_galaxy.add_patch(zoomedRegion3)
@@ -70,11 +70,11 @@ class mocha:
                 for star in constellation.list_star:
                     x = star.galacticLatitude.value
                     y = star.galacticLongitude.value
-                    ax_galaxy.scatter(np.radians(x), np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
-                    ax_zoom1.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
+                    ax_galaxy.scatter(np.radians(x), np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize, zorder = settings.starZorder)
+                    ax_zoom1.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize, zorder = settings.starZorder)
                     if constellation.name in settings.eclipticConstellations:
-                        ax_zoom2.scatter(np.radians(x),np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
-                    ax_zoom3.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize)
+                        ax_zoom2.scatter(np.radians(x),np.radians(y), color=settings.starColor, marker=settings.starMarker, s = settings.starSize, zorder = settings.starZorder)
+                    ax_zoom3.scatter(x,y, color=settings.starColor, marker=settings.starMarker, s = settings.starSize, zorder = settings.starZorder)
                     bonds = star.bonds.split(';')
                     for bond in bonds:
                         for astrum in constellation.list_star:
@@ -82,11 +82,11 @@ class mocha:
                                 x2 = astrum.galacticLatitude.value
                                 y2 = astrum.galacticLongitude.value
                                 ax_galaxy.plot( (np.radians(x), np.radians(x2)),
-                                                (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize)
-                                ax_zoom1.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize)
+                                                (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                ax_zoom1.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
                                 if constellation.name in settings.eclipticConstellations:
-                                    ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize)
-                                ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize)
+                                    ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
             ### SAVE PLOT
             plt.savefig('mocha.png', dpi=400)
         except Exception as e:
