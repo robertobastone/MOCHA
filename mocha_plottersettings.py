@@ -25,7 +25,7 @@ class getPlotSetting:
         # zoom 1 settings
         self.zoom_1_x = [-170,-140]
         self.zoom_1_width = self.zoom_1_x[1] - self.zoom_1_x[0]
-        self.zoom_1_y = [20,40]
+        self.zoom_1_y = [0,20]
         self.zoom_1_height = self.zoom_1_y[1] - self.zoom_1_y[0]
         self.zoom_1_offsetx = self.zoom_1_width/self.ratiooffset
         # zoom 2 settings --- now lambert projection of ecliptic constellations
@@ -33,7 +33,7 @@ class getPlotSetting:
                                        'Cancer', 'Leo', 'Virgo',
                                        'Libra', 'Scorpio', 'Ophiuchus', 'Sagittarius',
                                        'Capricorn', 'Aquarius', 'Pisces']
-        self.bins_2_x = 7
+        self.bins_2_x = 9
         '''
         self.zoom_2_x = [5,20]
         self.zoom_2_width = self.zoom_2_x[1] - self.zoom_2_x[0]
@@ -42,7 +42,7 @@ class getPlotSetting:
         self.zoom_2_offsetx = self.zoom_2_width/self.ratiooffset
         '''
         # zoom 3 settings
-        self.zoom_3_x = [30,90]
+        self.zoom_3_x = [20,70]
         self.zoom_3_width = self.zoom_3_x[1] - self.zoom_3_x[0]
         self.zoom_3_y = [-20,20]
         self.zoom_3_height = self.zoom_3_y[1] - self.zoom_3_y[0]

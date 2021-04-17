@@ -130,3 +130,6 @@ dmypy.json
 
 # constellation file
 constellations.xlsx
+
+# images
+test.png

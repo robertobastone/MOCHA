@@ -51,8 +51,9 @@ class mocha:
             ax_zoom2 = fig.add_subplot(spec[2, 1], projection=settings.projectionLambert)
             ax_zoom2.grid(True)
             ax_zoom2.locator_params(axis='x', nbins=settings.bins_2_x)
-            ax_zoom2.set_title('Ecliptic Constellations (galactic frame)')
-            ax_zoom2.set_xlabel(r'Galactic latitude $\mathrm{[\degree]}$')
+            #ax_zoom2.set_title('Ecliptic Constellations (galactic frame)')
+            ax_zoom2.set_xlabel('Ecliptic Constellations (galactic frame)')
+            #ax_zoom2.set_xlabel(r'Galactic latitude $\mathrm{[\degree]}$')
             #ax_zoom2.set_xlim(settings.zoom_2_x[0],settings.zoom_2_x[1])
             #ax_zoom2.set_ylim(settings.zoom_2_y[0],settings.zoom_2_y[1])
 
@@ -82,13 +83,14 @@ class mocha:
                                 x2 = astrum.galacticLatitude.value
                                 y2 = astrum.galacticLongitude.value
                                 #print(astrum.mochaId, x2, y2, x, y)
-                                if abs(x2 - x) < 180: # this was created for Taurus constellation whose star have longitude -178 e 178, thus ruining the plots
+                                if abs(x2 - x) < 180 or abs(y) > 75: # first condition: this was created for Taurus constellation whose star have longitude -178 e 178, thus ruining the plots
                                     ax_galaxy.plot( (np.radians(x), np.radians(x2)),
                                                     (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
                                     ax_zoom1.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
-                                if constellation.name in settings.eclipticConstellations:
-                                    ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
-                                ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    if constellation.name in settings.eclipticConstellations:
+                                        ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+
             ### SAVE PLOT
             plt.savefig('mocha.png', dpi=400)
         except Exception as e:
