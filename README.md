@@ -1,5 +1,5 @@
 # MOCHA
-Map Of Constellations in Hodiern Astronomy (MOCHA) is a Python script the recreates a map (in galactic coordinates) of the modern 88 constellations of both sky emispheres.
+Map Of Constellations in Hodiern Astronomy (MOCHA) is a Python script the recreates a map (in galactic coordinates) of the modern 88 constellations of both sky hemispheres.
 
 # Milestones
 1. April 10, 2021: MOCHA 1.00
