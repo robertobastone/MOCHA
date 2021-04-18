@@ -33,7 +33,7 @@ class getPlotSetting:
                                        'Cancer', 'Leo', 'Virgo',
                                        'Libra', 'Scorpio', 'Ophiuchus', 'Sagittarius',
                                        'Capricorn', 'Aquarius', 'Pisces']
-        self.bins_2_x = 9
+        self.bins_2_x =7
         '''
         self.zoom_2_x = [5,20]
         self.zoom_2_width = self.zoom_2_x[1] - self.zoom_2_x[0]

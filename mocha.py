@@ -82,15 +82,31 @@ class mocha:
                             if astrum.mochaId == bond:
                                 x2 = astrum.galacticLatitude.value
                                 y2 = astrum.galacticLongitude.value
-                                #print(astrum.mochaId, x2, y2, x, y)
-                                if abs(x2 - x) < 180 or abs(y) > 75: # first condition: this was created for Taurus constellation whose star have longitude -178 e 178, thus ruining the plots
+
+                                if abs(x2 - x) > 180 and abs(y) < 75: # first condition: this was created for Taurus constellation whose star have longitude -178 e 178, thus ruining the plots
+                                    if x < 0:
+                                        x_limit = -180
+                                    else:
+                                        x_limit = 180
+                                    print(astrum.mochaId, x2, y2, x, y, x_limit)
+                                    ax_galaxy.plot( (np.radians(x), np.radians(x_limit)),
+                                                    (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_galaxy.plot( (np.radians(-x_limit), np.radians(x2)),
+                                                    (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_zoom1.plot((x,x_limit),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_zoom1.plot((-x_limit,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_zoom3.plot((x,x_limit),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    ax_zoom3.plot((-x_limit,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                    if constellation.name in settings.eclipticConstellations:
+                                        ax_zoom2.plot((np.radians(x), np.radians(x_limit)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                        ax_zoom2.plot((np.radians(-x_limit), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
+                                else:
                                     ax_galaxy.plot( (np.radians(x), np.radians(x2)),
                                                     (np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
                                     ax_zoom1.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
                                     ax_zoom3.plot((x,x2),(y,y2), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
                                     if constellation.name in settings.eclipticConstellations:
                                         ax_zoom2.plot((np.radians(x), np.radians(x2)),(np.radians(y), np.radians(y2)), color = settings.constellationColor, linewidth = settings.constellationSize, zorder=settings.constellationZorder)
-
             ### SAVE PLOT
             plt.savefig('mocha.png', dpi=400)
         except Exception as e:
