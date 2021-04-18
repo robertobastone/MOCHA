@@ -13,6 +13,6 @@ Map Of Constellation in Hodiern Astronomy (MOCHA)
 ## Version 1.02 (Apr 11, 2021)
 - Second zoomed area is now a Lambert projection of main map
 ## Version 1.03 (Apr 17, 2021)
-- Improvement on visual rappresentation of constellations (e.g. Taurus) whose stars step beyond the 180° meridian
+- Improvement on visual representation of constellations (e.g. Taurus) whose stars step beyond the 180° meridian
 ## Version 1.04 (Apr 18, 2021)
-- Improvement on visual rappresentation of constellations (e.g. Lynx) whose stars-connecting lines are cut beyond the 180° meridian
+- Improvement on visual representation of constellations (e.g. Lynx) whose stars-connecting lines are cut beyond the 180° meridian
